@@ -6,11 +6,12 @@ def convrt(filename):
     try:
         with open(filename, "r", encoding="gbk") as f:
             data = f.read()
-        if '.c' in filename[-2:] or '.h' in filename[-2:]:
+        if '.c' in filename or '.h' in filename:
             data = data.replace('\t', "    ")
-            data = data.encode(encoding="utf-8")
+            while " \n" in data:
+                data = data.replace(" \n", '\n')
             with open(filename, "wb") as f:
-                f.write(data)
+                f.write(data.encode(encoding="utf-8"))
             print(filename)
     except Exception as e:
         return
